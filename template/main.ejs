@@ -45,11 +45,8 @@ submitBtn.onclick = function () {
     dataType: 'json',
     data:  data,
     success: function(data) {
-      var obj = JSON.parse(data);
-      console.log(obj);
-    //  var id = obj._id;
-    //  doStuff(id);
-    $("input[name='elevation']").val(obj);
+      var elevation = JSON.parse(data);
+      $("input[name='elevation']").val(elevation);
     }
   });
 }
