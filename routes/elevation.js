@@ -6,7 +6,7 @@ exports.post = function(req, res) {
   // https://api.open-elevation.com/api/v1/lookup?locations=41.161758,-8.583933
   var url = 'https://api.open-elevation.com/api/v1/lookup?locations=' + latitude + ',' + longitude;
 
-  const getElevation = async url => {
+  var getElevation = async url => {
     try {
       const response = await axios.get(url);
       const data = response.data;
