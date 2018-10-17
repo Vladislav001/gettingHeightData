@@ -16,4 +16,4 @@ exports.post = function(req, res) {
   };
 
   getElevation(url);
-}
+};

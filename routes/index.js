@@ -3,7 +3,8 @@ var router = express.Router();
 
 
 router.get('/', require('./main').get);
-router.post('/elevation', require('./elevation').post);
+//router.post('/elevation', require('./elevation').post);
+router.post('/getElevation', require('./elevation').post);
 
 // API
 //router.post('/api/v1/elevation', require('./api/v1/elevation').post);
