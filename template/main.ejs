@@ -1,20 +1,56 @@
 <!-- <link rel="stylesheet" href="css/main.css"> -->
 
 <% layout('layout/pattern') -%>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <div class="container">
-
-
-
   <div class="row">
-    <div class="col-sm">
-      Одна из трёх колонок
+    <div class="col">
+      <div class="form-group row">
+        <label for="example-text-input" class="col-2 col-form-label">Широта</label>
+        <div class="col">
+          <input name="latitude" class="form-control" type="text" placeholder="Широта">
+        </div>
+      </div>
     </div>
-    <div class="col-sm">
-      Одна из трёх колонок
+    <div class="col">
+      <div class="form-group row">
+        <label for="example-text-input" class="col-2 col-form-label">Долгота</label>
+        <div class="col">
+          <input name="longitude" class="form-control" type="text" placeholder="Долгота">
+        </div>
+      </div>
     </div>
-    <div class="col-sm">
-      Одна из трёх колонок
+    <div class="col">
+      <div class="form-group row">
+        <label for="example-text-input" class="col-2 col-form-label">Высота</label>
+        <div class="col">
+          <input name="elevation" class="form-control" type="text" placeholder="Высота">
+        </div>
+      </div>
     </div>
   </div>
+  <button  type="submit" class="btn btn-primary" id="submitBtn">Вычислить</button>
 </div>
+
+<script>
+var submitBtn = document.getElementById("submitBtn");
+submitBtn.onclick = function () {
+  var data = {};
+  data.latitude = $("input[name='latitude']").val();
+  data.longitude = $("input[name='longitude']").val();
+
+  $.ajax({
+    type: 'POST',
+    url: '/elevation',
+    dataType: 'json',
+    data:  data,
+    success: function(data) {
+      var obj = JSON.parse(data);
+      console.log(obj);
+    //  var id = obj._id;
+    //  doStuff(id);
+    $("input[name='elevation']").val(obj);
+    }
+  });
+}
+</script>
