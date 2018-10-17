@@ -1,53 +1,63 @@
-<!-- <link rel="stylesheet" href="css/main.css"> -->
+<link rel="stylesheet" href="css/main.css">
 
 <% layout('layout/pattern') -%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <div class="container">
   <div class="row">
     <div class="col">
       <div class="form-group row">
-        <label for="example-text-input" class="col-2 col-form-label">Широта</label>
+        <label for="example-text-input" class="col-form-label">Широта:</label>
         <div class="col">
-          <input name="latitude" class="form-control" type="text" placeholder="Широта">
+          <input name="latitude" class="form-control" value="48.7193900" type="text" placeholder="Широта">
         </div>
       </div>
     </div>
     <div class="col">
       <div class="form-group row">
-        <label for="example-text-input" class="col-2 col-form-label">Долгота</label>
+        <label for="example-text-input" class="col-form-label">Долгота:</label>
         <div class="col">
-          <input name="longitude" class="form-control" type="text" placeholder="Долгота">
+          <input name="longitude" class="form-control" value="44.5018300" type="text" placeholder="Долгота">
         </div>
       </div>
     </div>
     <div class="col">
       <div class="form-group row">
-        <label for="example-text-input" class="col-2 col-form-label">Высота</label>
+        <label for="example-text-input" class="col-form-label">Высота:</label>
         <div class="col">
           <input name="elevation" class="form-control" type="text" placeholder="Высота">
         </div>
       </div>
     </div>
+    <div class="col">
+      <button  type="submit" class="btn btn-primary" id="submitBtn">Вычислить</button>
+    </div>
   </div>
-  <button  type="submit" class="btn btn-primary" id="submitBtn">Вычислить</button>
-</div>
 
-<script>
-var submitBtn = document.getElementById("submitBtn");
-submitBtn.onclick = function () {
-  var data = {};
-  data.latitude = $("input[name='latitude']").val();
-  data.longitude = $("input[name='longitude']").val();
 
-  $.ajax({
-    type: 'POST',
-    url: '/elevation',
-    dataType: 'json',
-    data:  data,
-    success: function(data) {
-      var elevation = JSON.parse(data);
-      $("input[name='elevation']").val(elevation);
-    }
-  });
-}
+  <div class="row">
+    <div class="col">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d21057.07323684608!2d44.5170842!3d48.7220282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1539800217990" width="1140" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>     </div>
+    </div>
+    <h2><a href="https://documenter.getpostman.com/view/5148223/RWgtUHNf" target="_blank">API</a></h2>
+  </div>
+
+
+
+  <script>
+  var submitBtn = document.getElementById("submitBtn");
+  submitBtn.onclick = function () {
+    var data = {};
+    data.latitude = $("input[name='latitude']").val();
+    data.longitude = $("input[name='longitude']").val();
+
+    $.ajax({
+      type: 'POST',
+      url: '/elevation',
+      dataType: 'json',
+      data:  data,
+      success: function(data) {
+        var elevation = JSON.parse(data);
+        $("input[name='elevation']").val(elevation);
+      }
+    });
+  }
 </script>
