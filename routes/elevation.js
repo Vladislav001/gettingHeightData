@@ -3,8 +3,9 @@ const axios = require('axios');
 exports.post = function(req, res) {
   var latitude = req.body.latitude;
   var longitude = req.body.longitude;
-  // https://api.open-elevation.com/api/v1/lookup?locations=41.161758,-8.583933
-  var url = 'https://api.open-elevation.com/api/v1/lookup?locations=' + latitude + ',' + longitude;
+  //var api = req.body.api;
+
+  //var url = 'https://api.open-elevation.com/api/v1/lookup?locations=' + latitude + ',' + longitude;
   var url2 = 'https://elevation-api.io/api/elevation?points=(' + latitude + ',' + longitude + ')';
 
   const getElevation = async url => {
