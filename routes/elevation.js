@@ -5,18 +5,20 @@ exports.post = function(req, res) {
   var longitude = req.body.longitude;
   // https://api.open-elevation.com/api/v1/lookup?locations=41.161758,-8.583933
   var url = 'https://api.open-elevation.com/api/v1/lookup?locations=' + latitude + ',' + longitude;
+  var url2 = 'https://elevation-api.io/api/elevation?points=(' + latitude + ',' + longitude + ')';
 
   const getElevation = async url => {
     try {
       const response = await axios.get(url);
       const data = response.data;
 
-      res.send(JSON.stringify(data.results[0].elevation));
+      res.send(JSON.stringify(data.elevations[0].elevation));
+    //  res.send(JSON.stringify(data.results[0].elevation)); // для первого url
     } catch (error) {
       console.log(error);
     }
   };
 
-  getElevation(url);
+  getElevation(url2);
 
 };

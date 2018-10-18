@@ -6,6 +6,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "algorithmia": "^0.3.10",
     "axios": "^0.18.0",
     "body-parser": "~1.18.2",
     "bootstrap": "^4.1.3",

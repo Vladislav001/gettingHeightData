@@ -29,6 +29,14 @@
       </div>
     </div>
     <br><br><br>
+
+    <div class="col">
+      <select id="inputState" class="form-control">
+        <option selected>API</option>
+        <option>Быстрое</option>
+        <option>Медленное</option>
+      </select>
+    </div>
     <div class="col">
       <button  type="submit" class="btn btn-primary" id="submitBtn">Вычислить</button>
     </div>
@@ -41,8 +49,8 @@
   </div>
 
   <div class="row">
-  <img src="images/postmanLogo.png" alt="альтернативный текст" style="width: 50px; height: 50px; margin-right:10px;">
-  <h2><a href="https://documenter.getpostman.com/view/5148223/RWgtUHNf" target="_blank">API</a></h2>
+    <img src="images/postmanLogo.png" alt="альтернативный текст" style="width: 50px; height: 50px; margin-right:10px;">
+    <h2><a href="https://documenter.getpostman.com/view/5148223/RWgtUHNf" target="_blank">API</a></h2>
   </div>
 
 </div>
@@ -101,7 +109,7 @@ submitBtn.onclick = function () {
 
   // отрисуем на карте
 
-//ymaps.ready(init(data.latitude, data.longitude));
+  //ymaps.ready(init(data.latitude, data.longitude));
 
 
   $.ajax({
