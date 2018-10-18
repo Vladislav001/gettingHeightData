@@ -35,32 +35,57 @@
   </div>
 
 
-
   <div class="row">
     <div class="col">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d21057.07323684608!2d44.5170842!3d48.7220282!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1539800217990" width="1140" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>     </div>
+      <div id="map" style=" height: 600px"></div>
     </div>
-    <h2><a href="https://documenter.getpostman.com/view/5148223/RWgtUHNf" target="_blank">API</a></h2>
   </div>
+  <!-- <h2><a href="https://documenter.getpostman.com/view/5148223/RWgtUHNf" target="_blank">API</a></h2> -->
+</div>
 
 
 
-  <script>
-  var submitBtn = document.getElementById("submitBtn");
-  submitBtn.onclick = function () {
-    var data = {};
-    data.latitude = $("input[name='latitude']").val();
-    data.longitude = $("input[name='longitude']").val();
+<script type="text/javascript">
+// https://tech.yandex.ru/maps/doc/jsapi/2.1/dg/concepts/map-docpage/
+// Функция ymaps.ready() будет вызвана, когда
+// загрузятся все компоненты API, а также когда будет готово DOM-дерево.
+ymaps.ready(init);
 
-    $.ajax({
-      type: 'POST',
-      url: '/elevation',
-      dataType: 'json',
-      data:  data,
-      success: function(data) {
-        var elevation = JSON.parse(data);
-        $("input[name='elevation']").val(elevation);
-      }
-    });
-  }
+function init () {
+  var myMap = new ymaps.Map("map", {
+    center: [48.707103, 44.516939],
+    zoom: 5
+  }, {
+    searchControlProvider: 'yandex#search'
+  }),
+  myPlacemark = new ymaps.Placemark([48.707103, 44.516939], {
+    // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
+    balloonContentHeader: "Балун метки",
+    balloonContentBody: "Содержимое <em>балуна</em> метки",
+    balloonContentFooter: "Подвал",
+    hintContent: "Хинт метки"
+  });
+
+  myMap.geoObjects.add(myPlacemark);
+}
+</script>
+
+<script>
+var submitBtn = document.getElementById("submitBtn");
+submitBtn.onclick = function () {
+  var data = {};
+  data.latitude = $("input[name='latitude']").val();
+  data.longitude = $("input[name='longitude']").val();
+
+  $.ajax({
+    type: 'POST',
+    url: '/elevation',
+    dataType: 'json',
+    data:  data,
+    success: function(data) {
+      var elevation = JSON.parse(data);
+      $("input[name='elevation']").val(elevation);
+    }
+  });
+}
 </script>
