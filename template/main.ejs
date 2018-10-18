@@ -2,35 +2,38 @@
 
 <% layout('layout/pattern') -%>
 <div class="container">
+
   <div class="row">
-    <div class="col">
-      <div class="form-group row">
-        <label for="example-text-input" class="col-form-label">Широта:</label>
-        <div class="col">
-          <input name="latitude" class="form-control" value="48.7193900" type="text" placeholder="Широта">
+    <div class="col-3">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Широта</span>
         </div>
+        <input name="latitude" class="form-control" value="48.7193900" type="text" placeholder="Широта">
       </div>
     </div>
-    <div class="col">
-      <div class="form-group row">
-        <label for="example-text-input" class="col-form-label">Долгота:</label>
-        <div class="col">
-          <input name="longitude" class="form-control" value="44.5018300" type="text" placeholder="Долгота">
+    <div class="col-3">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Долгота</span>
         </div>
+        <input name="longitude" class="form-control" value="44.5018300" type="text" placeholder="Долгота">
       </div>
     </div>
-    <div class="col">
-      <div class="form-group row">
-        <label for="example-text-input" class="col-form-label">Высота:</label>
-        <div class="col">
-          <input name="elevation" class="form-control" type="text" placeholder="Высота">
+    <div class="col-3">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Высота</span>
         </div>
+        <input name="elevation" class="form-control" type="text"  disabled>
       </div>
     </div>
+    <br><br><br>
     <div class="col">
       <button  type="submit" class="btn btn-primary" id="submitBtn">Вычислить</button>
     </div>
   </div>
+
 
 
   <div class="row">

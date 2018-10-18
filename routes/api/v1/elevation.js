@@ -9,7 +9,11 @@ exports.post = function(req, res) {
     try {
       const response = await axios.get(url);
       const data = response.data;
-      res.status(200).send({ elevation: data.results[0].elevation });
+      res.status(200).send({
+        elevation: data.results[0].elevation,
+        latitude: latitude,
+        longitude: longitude
+       });
     } catch (error) {
       console.log(error);
     }
