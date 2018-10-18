@@ -12,7 +12,7 @@ exports.post = function(req, res) {
       res.status(200).send({
         elevation: data.results[0].elevation,
         latitude: latitude,
-        longitude: longitude
+        longitude: longitude,
        });
     } catch (error) {
       console.log(error);
