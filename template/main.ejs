@@ -31,34 +31,32 @@
     <br><br><br>
 
     <!-- <div class="col">
-      <select name="api" class="form-control">
-        <option selected value="0">API</option>
-        <option value="1">Быстрое</option>
-        <option value="2">Медленное</option>
-      </select>
-    </div> -->
-    <div class="col">
-      <button  type="submit" class="btn btn-primary" id="submitBtn">Вычислить</button>
-    </div>
-  </div>
+    <select name="api" class="form-control">
+    <option selected value="0">API</option>
+    <option value="1">Быстрое</option>
+    <option value="2">Медленное</option>
+  </select>
+</div> -->
+<div class="col">
+  <button  type="submit" class="btn btn-primary" id="submitBtn">Вычислить</button>
+</div>
+</div>
 
-  <div class="row">
-    <div class="col">
-      <div id="map" style=" height: 600px"></div>
-    </div>
+<div class="row">
+  <div class="col">
+    <div id="map" style=" height: 600px"></div>
   </div>
+</div>
 
-  <div class="row">
-    <img src="images/postmanLogo.png" alt="альтернативный текст" style="width: 50px; height: 50px; margin-right:10px;">
-    <h2><a href="https://documenter.getpostman.com/view/5148223/RWgtUHNf" target="_blank">API</a></h2>
-  </div>
+<div class="row">
+  <img src="images/postmanLogo.png" alt="альтернативный текст" style="width: 50px; height: 50px; margin-right:10px;">
+  <h2><a href="https://documenter.getpostman.com/view/5148223/RWgtUHNf" target="_blank">API</a></h2>
+</div>
 
 </div>
 
 
-
-<script type="text/javascript">
-// https://tech.yandex.ru/maps/doc/jsapi/2.1/dg/concepts/map-docpage/
+<script>
 // Функция ymaps.ready() будет вызвана, когда
 // загрузятся все компоненты API, а также когда будет готово DOM-дерево.
 ymaps.ready(init);
@@ -66,62 +64,46 @@ ymaps.ready(init);
 function init () {
   var myMap = new ymaps.Map("map", {
     center: [48.707103, 44.516939],
-    zoom: 5
+    zoom: 4
   }, {
     searchControlProvider: 'yandex#search'
-  }),
-  myPlacemark = new ymaps.Placemark([48.707103, 44.516939], {
-    // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
-    balloonContentHeader: "Балун метки",
-    balloonContentBody: "Содержимое <em>балуна</em> метки",
-    balloonContentFooter: "Подвал",
-    hintContent: "Хинт метки"
   });
 
-  myMap.geoObjects.add(myPlacemark);
+  var countPoints = 1;
+  var submitBtn = document.getElementById("submitBtn");
+  submitBtn.onclick = function () {
+    var data = {};
+    data.latitude = $("input[name='latitude']").val();
+    data.longitude = $("input[name='longitude']").val();
+    //data.api =  $("select[name='api']").val();
+
+    $.ajax({
+      type: 'POST',
+      url: '/elevation',
+      dataType: 'json',
+      data:  data,
+      success: function(data) {
+        var elevation = JSON.parse(data);
+        $("input[name='elevation']").val(elevation);
+
+        // отрисуем на карте $("input.. - т.к data нету еще
+        myMap.geoObjects
+        .add(new ymaps.Placemark([ $("input[name='latitude']").val(), $("input[name='longitude']").val()], {
+          balloonContent: 'Долгота: ' + $("input[name='latitude']").val() + '°'
+          + '<br> Широта: ' + $("input[name='longitude']").val() + '°'
+          + '<br> Высота над уровнем моря: ' + $("input[name='elevation']").val() + ' м' ,
+          iconCaption: 'Точка № ' + countPoints
+        }, {
+          preset: 'islands#greenDotIconWithCaption'
+        }));
+        myMap.setCenter([$("input[name='latitude']").val(), $("input[name='longitude']").val()]);
+        countPoints++;
+        console.log(countPoints);
+      }
+    });
+
+  }
+
 }
-// function init (latitude, longitude) {
-//   var myMap = new ymaps.Map("map", {
-//     center: [latitude, longitude],
-//     zoom: 5
-//   }, {
-//     searchControlProvider: 'yandex#search'
-//   }),
-//   myPlacemark = new ymaps.Placemark([latitude, longitude], {
-//     // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
-//     balloonContentHeader: "Балун метки",
-//     balloonContentBody: "Содержимое <em>балуна</em> метки",
-//     balloonContentFooter: "Подвал",
-//     hintContent: "Хинт метки"
-//   });
-//
-//   myMap.geoObjects.add(myPlacemark);
-// }
-</script>
 
-<script>
-
-var submitBtn = document.getElementById("submitBtn");
-submitBtn.onclick = function () {
-  var data = {};
-  data.latitude = $("input[name='latitude']").val();
-  data.longitude = $("input[name='longitude']").val();
-  //data.api =  $("select[name='api']").val();
-
-  // отрисуем на карте
-
-  //ymaps.ready(init(data.latitude, data.longitude));
-
-
-  $.ajax({
-    type: 'POST',
-    url: '/elevation',
-    dataType: 'json',
-    data:  data,
-    success: function(data) {
-      var elevation = JSON.parse(data);
-      $("input[name='elevation']").val(elevation);
-    }
-  });
-}
 </script>
