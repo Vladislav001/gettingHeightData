@@ -8,18 +8,26 @@ exports.post = function(req, res) {
   //var url = 'https://api.open-elevation.com/api/v1/lookup?locations=' + latitude + ',' + longitude;
   var url2 = 'https://elevation-api.io/api/elevation?points=(' + latitude + ',' + longitude + ')';
 
-  const getElevation = async url => {
-    try {
-      const response = await axios.get(url);
-      const data = response.data;
+  latitude = Number(latitude);
+  longitude =  Number(longitude);
 
-      res.send(JSON.stringify(data.elevations[0].elevation));
-    //  res.send(JSON.stringify(data.results[0].elevation)); // для первого url
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  if(latitude >= -90 && latitude <= 90 && longitude >= -180 && longitude <= 180)
+  {
+    const getElevation = async url => {
+      try {
+        const response = await axios.get(url);
+        const data = response.data;
 
-  getElevation(url2);
+        res.send(JSON.stringify(data.elevations[0].elevation));
+        //  res.send(JSON.stringify(data.results[0].elevation)); // для первого url
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getElevation(url2);
+  } else {
+    res.send("Некорректные данные");
+  }
 
 };

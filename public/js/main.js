@@ -55,6 +55,9 @@ function init () {
         //   + '</tr>'
         // );
         countPoints++;
+      },
+      error: function(data) {
+        alert(data.responseText);
       }
     });
   }
