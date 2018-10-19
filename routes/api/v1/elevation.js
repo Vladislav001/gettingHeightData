@@ -1,4 +1,4 @@
-const  axios = require('axios');
+const axios = require('axios');
 
 exports.post = function(req, res) {
   var latitude = req.body.latitude;
@@ -17,7 +17,7 @@ exports.post = function(req, res) {
         latitude: latitude,
         longitude: longitude,
       });
-    
+
   } catch (error) {
     console.log(error);
   }
