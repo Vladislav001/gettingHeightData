@@ -35,7 +35,7 @@ exports.post = function(req, res) {
       }
     };
 
-    getElevation(url);
+    getElevation(urlAltitude);
   } else {
     res.status(403).send({
       error: "Некорректные данные",
