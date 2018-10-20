@@ -3,8 +3,8 @@ const axios = require('axios');
 exports.post = function(req, res) {
   var latitude = req.body.latitude;
   var longitude = req.body.longitude;
-  //var url = 'https://api.open-elevation.com/api/v1/lookup?locations=' + latitude + ',' + longitude;
-  var url2 = 'https://elevation-api.io/api/elevation?points=(' + latitude + ',' + longitude + ')';
+  var url = 'https://api.open-elevation.com/api/v1/lookup?locations=' + latitude + ',' + longitude;
+  //var url2 = 'https://elevation-api.io/api/elevation?points=(' + latitude + ',' + longitude + ')';
 
   // на всякий случай проверим, что пришли корректные данные
   latitude = Number(latitude);
@@ -18,8 +18,8 @@ exports.post = function(req, res) {
         const data = response.data;
 
         res.status(200).send({
-          //  elevation: data.results[0].elevation,
-          elevation: data.elevations[0].elevation,
+            elevation: data.results[0].elevation,
+        //  elevation: data.elevations[0].elevation,
           latitude: latitude,
           longitude: longitude,
         });
@@ -32,7 +32,7 @@ exports.post = function(req, res) {
       }
     };
 
-    getElevation(url2);
+    getElevation(url);
   } else {
     res.status(403).send({
       error: "Некорректные данные",
