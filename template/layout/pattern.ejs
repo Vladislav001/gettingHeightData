@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-   <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/header.css">
   <!--<link rel="stylesheet" href="/css/footer.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -10,18 +10,21 @@
   <script src="https://api-maps.yandex.ru/2.1/?apikey=51bc0eac-e63b-4615-963c-9a003dd4b1db&lang=ru_RU" type="text/javascript"></script>
 </head>
 <body>
+  <div class="wrapper">
+    <header>
+      <%-blocks.header%>
+      <%-partial('../partials/header')%>
+    </header>
 
-  <header>
-    <%-blocks.header%>
-    <%-partial('../partials/header')%>
-  </header>
+    <div class="content">
+      <%-body -%>
+    </div>
 
-  <%-body -%>
+    <footer class="page-footer font-small blue">
+      <%-blocks.footer%>
+      <%-partial('../partials/footer')%>
+    </footer>
 
-  <footer>
-    <%-blocks.footer%>
-    <%-partial('../partials/footer')%>
-  </footer>
-
-</body>
+  </body>
+</div>
 </html>
